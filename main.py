@@ -13,85 +13,46 @@ DATA_PATH     = Path('data/buttonCategories.json')
 SETTINGS_PATH = Path('data/settings.json')
 
 TICKET_TYPES = {
-    'denuncias': {
-        'label': 'Denúncias',
-        'emoji': '🚨',
-        'description': 'Denuncia um user ou conteúdo enviado para o servidor',
+    'redeems': {
+        'label': 'Redeems',
+        'emoji': '🎁',
+        'description': 'Resgata um código ou oferta',
         'confirm_msg': (
-            'Se quiseres fazer uma denúncia reúne :\n\n'
-            '» provas do ocorrido\n'
-            '» @discord de pessoas em questão\n'
-            '» descrição do ocorrido\n\n'
+            'Se quiseres resgatar um código ou oferta, clica no botão em baixo para abrir o ticket e '
+            'indica o código ou oferta que pretendes resgatar.\n\n'
             '**Vamos responder o mais rápido possível!**'
         ),
         'welcome_lines': [
-            '- Descreve a situação que pretendes denunciar',
-            '- Inclui provas (capturas de ecrã, links, etc.)',
-            '- Indica o utilizador envolvido, se aplicável',
+            '- Indica o código ou oferta que pretendes resgatar',
+            '- Fornece qualquer informação adicional relevante',
         ],
     },
-    'geral': {
-        'label': 'Geral',
-        'emoji': '💬',
-        'description': 'Dúvidas gerais',
+    'promos': {
+        'label': 'Promos',
+        'emoji': '🏷️',
+        'description': 'Informações sobre promoções',
         'confirm_msg': (
-            'Nesta sala podes tirar todas as dúvidas gerais\n\n'
-            'Se quiseres abrir um ticket de dúvidas gerais explica bem o teu problema e '
-            'certifica-te que a resposta não existe no servidor.\n\n'
+            'Se tens dúvidas ou queres saber mais sobre as nossas promoções, '
+            'clica no botão em baixo para abrir o ticket.\n\n'
+            '**Vamos responder o mais rápido possível!**'
+        ),
+        'welcome_lines': [
+            '- Descreve a promoção sobre a qual tens dúvidas',
+            '- Indica qualquer detalhe relevante',
+        ],
+    },
+    'outros': {
+        'label': 'Outros',
+        'emoji': '💬',
+        'description': 'Outros assuntos e dúvidas gerais',
+        'confirm_msg': (
+            'Se tens alguma dúvida ou assunto que não se enquadra nas outras categorias, '
+            'clica no botão em baixo para abrir o ticket e explica o teu caso.\n\n'
             '**Vamos responder o mais rápido possível!**'
         ),
         'welcome_lines': [
             '- Descreve o teu assunto detalhadamente',
             '- A equipa responderá o mais rápido possível',
-        ],
-    },
-    'printer': {
-        'label': 'Printer',
-        'emoji': '💸',
-        'description': 'Recebe a role @printer',
-        'confirm_msg': (
-            'Se quiseres receber a Role @Printer carrega no botão em baixo para abrir ticket e '
-            'Garante que fizeste 1 dos 4 requisitos:\n\n'
-            '» Ter conta criada na MEXC pelo nosso link e fazer volume mensalmente\n'
-            '» Ter conta no ATAS criada pelo nosso link e ter aderido a um dos planos\n'
-            '» Usaste o nosso código de desconto "AP" em alguma PropFirm com que tenhamos parceria\n'
-            '» Entraste Na Mentoria do Pereira ou do Raúl'
-        ),
-        'welcome_lines': [
-            '- Garante que fizeste 1 dos 4 requisitos:',
-            '- Ter conta criada na MEXC pelo nosso link e fazer volume mensalmente',
-            '- Ter conta no ATAS criada pelo nosso link e ter aderido a um dos planos',
-            '- Usaste o nosso código de desconto "AP" em alguma PropFirm com que tenhamos parceria',
-            '- Entraste Na Mentoria do Pereira ou do Raúl',
-        ],
-    },
-    'sugestoes': {
-        'label': 'Sugestões',
-        'emoji': '💡',
-        'description': 'Faz uma sugestão para melhorar o servidor',
-        'confirm_msg': (
-            'Tens uma ideia para melhorar o servidor?\n\n'
-            'Sugerir funcionalidades, eventos ou melhorias é sempre bem-vindo! '
-            'Partilha a tua sugestão de forma clara e detalhada.\n\n'
-            '**Vamos responder o mais rápido possível!**'
-        ),
-        'welcome_lines': [
-            '- Descreve a tua sugestão detalhadamente',
-            '- Explica como isso beneficiaria a comunidade',
-        ],
-    },
-    'mentorship': {
-        'label': 'Mentorship',
-        'emoji': '📚',
-        'description': 'Interessa-te por uma das nossas mentorias',
-        'confirm_msg': (
-            'Se estás interessado em entrar em uma Mentorship, clica no botão em baixo '
-            'e específica no ticket qual tens interesse.\n\n'
-            '**Vamos responder o mais rápido possível!**'
-        ),
-        'welcome_lines': [
-            '- diz nos qual mentoria tens intenção de comprar',
-            '- Indica qualquer dúvida que tenhas sobre a mentorship',
         ],
     },
 }
@@ -344,11 +305,9 @@ async def setup(interaction: discord.Interaction):
 @app_commands.default_permissions(manage_channels=True)
 @app_commands.describe(botao='Opção de ticket a configurar', categoria='Categoria do Discord')
 @app_commands.choices(botao=[
-    app_commands.Choice(name='🚨 Denúncias',  value='denuncias'),
-    app_commands.Choice(name='💬 Geral',       value='geral'),
-    app_commands.Choice(name='🖨️ Printer',    value='printer'),
-    app_commands.Choice(name='💡 Sugestões',   value='sugestoes'),
-    app_commands.Choice(name='📚 Mentorship',  value='mentorship'),
+    app_commands.Choice(name='🎁 Redeems', value='redeems'),
+    app_commands.Choice(name='🏷️ Promos',  value='promos'),
+    app_commands.Choice(name='💬 Outros',  value='outros'),
 ])
 async def setcategoria(interaction: discord.Interaction, botao: str, categoria: discord.CategoryChannel):
     data = load_button_categories()
