@@ -1,0 +1,21 @@
+{
+  "token": "",
+  "clientId": "1461626175020597351",
+  "guildid": "1461374456164520071",
+  "tickets": {
+    "enabled": true,
+    "categoryId": " 1461441669315559557",
+    "supportRoleIds": [
+      "1415706712702324786",
+      "1420418910905176195",
+      "1420397163661496360"
+    ],
+    "staffRoleId": "",
+    "logChannelId": "1461442013449683045",
+    "transcriptChannelId": "1461441757974761503",
+    "feedbackChannelId": "",
+    "maxTicketsPerUser": 1,
+    "panelChannelId": null,
+    "panelMessageId": ""
+  }
+}
