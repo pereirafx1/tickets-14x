@@ -128,7 +128,7 @@ class TicketSelect(discord.ui.Select):
         embed = discord.Embed(
             title=f"{t['emoji']} {t['label']}",
             description=t['confirm_msg'],
-            color=0xE74C3C,
+            color=0xF1C40F,
         )
         await interaction.response.send_message(embed=embed, view=ConfirmView(key), ephemeral=True)
 
@@ -192,7 +192,7 @@ class ConfirmView(discord.ui.View):
                 f"Olá {member.mention}! A equipa irá atender-te em breve.\n\n"
                 f"**Por favor fornece as seguintes informações:**{bullet_text}"
             ),
-            color=0xE74C3C,
+            color=0xF1C40F,
         )
         embed.set_footer(text='Clica em "Fechar Ticket" quando o assunto estiver resolvido.')
 
@@ -203,7 +203,7 @@ class ConfirmView(discord.ui.View):
         if log_id:
             log_ch = guild.get_channel(int(log_id))
             if log_ch:
-                log_embed = discord.Embed(title='🎫 Ticket Aberto', color=0x00FF00)
+                log_embed = discord.Embed(title='🎫 Ticket Aberto', color=0xF1C40F)
                 log_embed.add_field(name='Utilizador', value=f'{member.mention} ({member.name})', inline=True)
                 log_embed.add_field(name='Categoria',  value=f"{t['emoji']} {t['label']}",        inline=True)
                 log_embed.add_field(name='Canal',      value=channel.mention,                      inline=True)
@@ -216,7 +216,7 @@ class CloseTicketView(discord.ui.View):
 
     @discord.ui.button(label='Fechar Ticket', emoji='🔒', style=discord.ButtonStyle.danger, custom_id='ticket_close')
     async def close(self, interaction: discord.Interaction, button: discord.ui.Button):
-        embed = discord.Embed(description='🔒 O ticket será fechado em 5 segundos...', color=0xFF0000)
+        embed = discord.Embed(description='🔒 O ticket será fechado em 5 segundos...', color=0xF1C40F)
         await interaction.response.send_message(embed=embed)
 
         # Transcript
@@ -234,7 +234,7 @@ class CloseTicketView(discord.ui.View):
                         f'**Canal:** #{interaction.channel.name}\n'
                         f'**Fechado por:** {interaction.user.mention}'
                     ),
-                    color=0xE74C3C,
+                    color=0xF1C40F,
                 )
                 await transcript_ch.send(embed=t_embed, file=transcript_file)
 
@@ -243,7 +243,7 @@ class CloseTicketView(discord.ui.View):
         if log_id:
             log_ch = interaction.guild.get_channel(int(log_id))
             if log_ch:
-                log_embed = discord.Embed(title='🔒 Ticket Fechado', color=0xFF0000)
+                log_embed = discord.Embed(title='🔒 Ticket Fechado', color=0xF1C40F)
                 log_embed.add_field(name='Canal',      value=interaction.channel.name,  inline=True)
                 log_embed.add_field(name='Fechado por', value=interaction.user.mention, inline=True)
                 await log_ch.send(embed=log_embed)
@@ -282,13 +282,13 @@ async def setup(interaction: discord.Interaction):
     embed = discord.Embed(
         title='Central de Suporte Alpha Print',
         description=(
-            'Nesta sala podes tirar todas as dúvidas e entrar em contacto com a equipa da Alpha Print\n'
+            'Nesta sala podes tirar todas as dúvidas e entrar em contacto com a equipa do servidor\n'
             'Para evitar Problemas, por favor lê com atenção todas as opções e explica sempre o motivo do ticket\n\n'
             'A equipa irá fechar o ticket se:\n'
             '» Não houver uma resposta até 48H\n'
             '» O motivo não for válido'
         ),
-        color=0xE74C3C,
+        color=0xF1C40F,
     )
     image_url = settings.get('panelImage', '')
     if image_url:
@@ -317,7 +317,7 @@ async def setcategoria(interaction: discord.Interaction, botao: str, categoria: 
     embed = discord.Embed(
         title='✅ Categoria Definida',
         description=f"Os tickets de **{t['emoji']} {t['label']}** serão criados na categoria **{categoria.name}**.",
-        color=0x00FF00,
+        color=0xF1C40F,
     )
     await interaction.response.send_message(embed=embed, ephemeral=True)
 
@@ -336,7 +336,7 @@ async def settranscript(interaction: discord.Interaction, canal: discord.TextCha
     embed = discord.Embed(
         title='✅ Canal de Transcritos Definido',
         description=f'Os transcritos dos tickets serão enviados para {canal.mention}.',
-        color=0x00FF00,
+        color=0xF1C40F,
     )
     await interaction.response.send_message(embed=embed, ephemeral=True)
 
@@ -355,7 +355,7 @@ async def setimagem(interaction: discord.Interaction, url: str):
     embed = discord.Embed(
         title='✅ Imagem do Painel Definida',
         description='Cria um novo painel com `/setup` para aplicar a imagem.',
-        color=0x00FF00,
+        color=0xF1C40F,
     )
     embed.set_image(url=url)
     await interaction.response.send_message(embed=embed, ephemeral=True)
