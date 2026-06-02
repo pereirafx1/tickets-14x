@@ -160,6 +160,10 @@ class ConfirmView(discord.ui.View):
             return
 
         safe_name = ''.join(c for c in member.name.lower() if c.isalnum())[:20] or str(member.id)
+        settings  = load_settings()
+        ticket_number = settings.get('ticketCounter', 0) + 1
+        settings['ticketCounter'] = ticket_number
+        save_settings(settings)
         cat_id    = get_category_id(self.key)
         category  = guild.get_channel(cat_id) if cat_id else None
 
@@ -179,7 +183,7 @@ class ConfirmView(discord.ui.View):
                 )
 
         channel = await guild.create_text_channel(
-            name=f'ticket-{safe_name}',
+            name=f'ticket-{ticket_number}-{safe_name}',
             category=category,
             topic=f"{t['label']} | uid:{member.id} | {member.name}",
             overwrites=overwrites,
